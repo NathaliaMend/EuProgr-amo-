@@ -12,5 +12,5 @@ function mostraPorta() {
     console.log('servidor criado e rodando na porta', porta)
 } 
 
-app.use(router.get('/mensagem', mostraMensagem))
+app.use(router.get('/para-alguem-especial', mostraMensagem))
 app.listen(porta, mostraPorta)
