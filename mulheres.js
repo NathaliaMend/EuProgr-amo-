@@ -2,33 +2,15 @@ const express = require("express") // Aqui estou iniciando o express
 const router = express.Router() // Aqui  estou configurando a primera parte da rota
 const { v4: uuidv4 } = require('uuid'); //coloquei outra biblioteca
 
+const ConectaBancoDeDados = require('./BancoDeDados') // Liguei o arquivo banco de dados a esse
+ConectaBancoDeDados() // chamando a funcao que conecta o banco de dados
+
+const mulher = require('./mulherModel')
 const app = express() // Aqui estou iniciando o app
 app.use(express.json())
 const porta = 3390 // Aqui estou criando a porta
 
 
-// Aqui foi criado a lista inicial de mulheres
-const mulheres = [
-    {
-        id: '1',
-        nome: 'nathalia mendonca',
-        imagem: 'https://lh3.google.com/pw/AJFCJaUAWZfqGT5Sg7lV6J4DuXwcWbnNTbc8QW_f7bKjNHuwo4Ipcy4qpg5_o3cQ2VNk_3YSQvWZVPWbZAf9QN5QYv0htls6BAs=w493-h657-s-no?authuser=1',
-        minibio: 'Analista e desenvolvedora de sistemas'
-    },
-    {
-        id:'2',
-        nome: 'Iana Chan',
-        imagem: 'https://pbs.twimg.com/profile_images/1420905428452524037/DURvAmKN_400x400.jpg',
-        minibio: 'Fundadora do programaria'
-
-    },
-    {
-        id:'3',
-        nome: 'Nina da Hora',
-        imagem: 'https://www.fundacaotelefonicavivo.org.br/wp-content/uploads/2022/11/10-ninadahora800x500mobile.png',
-        minibio: 'cientista da computacao'
-    }
-]
 
 //POST
 function criaMulher(request, response){
@@ -75,8 +57,13 @@ function deletaMulher(request, response) {
 }
 
 //GET
-function mostraMulheres(request, response) {
-   response.json(mulheres)
+async function mostraMulheres(request, response) {
+    try{
+         const MulheresVindasDoBancoDeDados = await mulher.find()
+         response.json(MulheresVindasDoBancoDeDados)
+    }catch (erro) {
+         console.log(erro)
+    }
 }
 //PORTA
 function mostraPorta() {
