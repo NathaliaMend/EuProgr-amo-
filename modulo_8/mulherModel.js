@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const mulherschema = new mongoose.schema({
+const mulherschema = new mongoose.Schema({
     nome:{
         type: String,
         required: true
@@ -9,11 +9,11 @@ const mulherschema = new mongoose.schema({
         type: String,
         required: true
     },
-    citacao:{
+    minibio:{
         type: String,
         required: true
     },
-    minibio:{
+    citação:{
         type: String,
         required: true 
     }
